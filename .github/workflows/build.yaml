@@ -1,13 +1,25 @@
-on: push
+name: CI
 
+on: push
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
-      - run: make setup
-      - run: make test
-      - run: make lint
+      - name: Checkout repo
+        uses: actions/checkout@v4
 
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
 
+      - name: Make setup
+        run: make setup
+
+      - name: Make test
+        run: make test
+
+      - name: Make lint
+        run: make lint
